@@ -127,8 +127,8 @@ Rather than simply deploying services, every architectural decision will be docu
 # Sprint Roadmap
 
 * [x] Sprint 0 – Project Planning
-* [ ] Sprint 1 – Git & Repository Structure
-* [ ] Sprint 2 – Docker Fundamentals
+* [x] Sprint 1 – Git & Repository Structure
+* [x] Sprint 2 – Docker Fundamentals
 * [ ] Sprint 3 – AWS Networking Concepts
 * [ ] Sprint 4 – Terraform Infrastructure as Code
 * [ ] Sprint 5 – AWS Infrastructure Deployment
@@ -207,26 +207,6 @@ Every sprint concludes with:
 
 # Current Status
 
-## Sprint 0 – Planning ✅
-
-Completed:
-
-* Selected project scope
-* Defined architecture
-* Chosen technology stack
-* Planned learning roadmap
-* Identified monitoring strategy
-* Defined documentation standards
-
-No cloud resources have been deployed yet.
-
-Current AWS Cost:
-
-```
-$0.00
-```
-
----
 
 # Planned Monitoring
 

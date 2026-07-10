@@ -105,3 +105,10 @@ docker compose down -v
 
 ---
 
+---
+
+## Screenshots
+
+<img width="1396" height="119" alt="docker local" src="https://github.com/user-attachments/assets/2df13b6d-66f5-42c8-8326-8453bb01e0d7" />
+
+---

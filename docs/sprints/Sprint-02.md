@@ -109,4 +109,4 @@ docker compose down -v
 
 ## Screenshots
 
-![alt text](docs/image/docker local.png)
+[text](image)

@@ -80,7 +80,7 @@ ci(actions):
 
 ## Lessons Learned
 
-- Good Git history is documentation.
+- Good Git history is documentation .
 - Infrastructure and application code should remain separated.
 - Terraform state should never be committed.
 

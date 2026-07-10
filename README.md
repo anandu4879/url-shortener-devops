@@ -1,49 +1,55 @@
 # Production-Ready URL Shortener on AWS
 
-> A production-inspired DevOps project built to demonstrate real-world cloud architecture, Infrastructure as Code, CI/CD, observability, and security best practices.
+> A production-inspired DevOps project built while preparing for AWS Solutions Architect Associate (SAA-C03) and DevOps Engineer roles.
 
-## Project Goal
-
-This repository documents my journey of building a production-style URL Shortener from scratch while preparing for the AWS Solutions Architect – Associate certification and DevOps Engineer roles.
-
-The goal is **not** to build the next Bitly.
-
-The goal is to learn and demonstrate how modern applications are deployed, monitored, secured, and automated using AWS and DevOps practices.
-
-Every infrastructure component will be created using Infrastructure as Code, documented, monitored, and destroyed after use to minimize cloud costs.
+![Project Status](https://img.shields.io/badge/Status-In%20Progress-blue)
+![AWS](https://img.shields.io/badge/AWS-SAA-orange)
+![Terraform](https://img.shields.io/badge/Terraform-IaC-623CE4)
+![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED)
+![Monitoring](https://img.shields.io/badge/Monitoring-Prometheus%20%2B%20Grafana-E6522C)
 
 ---
 
-# Architecture (Final Target)
+# Overview
+
+This repository documents my journey of building a production-style cloud application from scratch while preparing for AWS Solutions Architect Associate and DevOps Engineer interviews.
+
+Instead of focusing on complex business logic, this project focuses on building real-world infrastructure and operational practices including:
+
+- Infrastructure as Code
+- Cloud Networking
+- CI/CD
+- Monitoring & Observability
+- Security
+- Cost Optimization
+- Production Readiness
+
+The application itself is intentionally simple so that the majority of effort goes into infrastructure engineering.
+
+---
+
+# Architecture
+
+> *(Architecture diagram will be added after Sprint 5.)*
 
 ```
-                Internet
-                    │
-                    ▼
-         Application Load Balancer
-                    │
-      ┌─────────────┴─────────────┐
-      │                           │
-      ▼                           ▼
-  EC2 Instance                EC2 Instance
- (Docker App)                (Docker App)
-      │                           │
-      └─────────────┬─────────────┘
-                    │
-             Private Network
-                    │
-        ┌───────────┴───────────┐
-        ▼                       ▼
- PostgreSQL (RDS)          Redis Cache
+Internet
+     │
+     ▼
+Application Load Balancer
+     │
+     ▼
+FastAPI Application (EC2)
+     │
+ ┌───┴─────────────┐
+ ▼                 ▼
+Redis          PostgreSQL (RDS)
 
-                    │
-              Monitoring Stack
-        ┌───────────┴───────────┐
-        ▼                       ▼
-    Prometheus              Grafana
-
-                    │
-                 CloudWatch
+Monitoring
+ ├── Prometheus
+ ├── Grafana
+ ├── Node Exporter
+ └── cAdvisor
 ```
 
 ---
@@ -52,239 +58,182 @@ Every infrastructure component will be created using Infrastructure as Code, doc
 
 ## Cloud
 
-* AWS VPC
-* Public & Private Subnets
-* Internet Gateway
-* NAT Gateway
-* Route Tables
-* Security Groups
-* EC2
-* Auto Scaling Group
-* Application Load Balancer
-* Amazon RDS (PostgreSQL)
-* Amazon ECR
-* AWS Systems Manager
-* CloudWatch
-* IAM
-* S3 (Terraform Backend)
+- AWS EC2
+- Amazon RDS
+- VPC
+- Public & Private Subnets
+- Internet Gateway
+- NAT Gateway
+- Route Tables
+- Security Groups
+- Application Load Balancer
+- Auto Scaling Group
+- IAM
+- CloudWatch
+- S3
 
----
+## Infrastructure as Code
 
-## Application
+- Terraform
 
-* Python
-* FastAPI
-* PostgreSQL
-* Redis
-* Nginx
+## Containerization
 
----
+- Docker
+- Docker Compose
 
-## DevOps
+## Backend
 
-* Docker
-* Docker Compose
-* Terraform
-* GitHub Actions
+- Python
+- FastAPI
+- PostgreSQL
+- Redis
+- Nginx
 
----
+## CI/CD
+
+- GitHub Actions
 
 ## Monitoring
 
-* Prometheus
-* Grafana
-* Node Exporter
-* cAdvisor
-
----
-
-# Learning Objectives
-
-Throughout this project I aim to understand:
-
-* Infrastructure as Code with Terraform
-* AWS networking fundamentals
-* Docker and containerization
-* CI/CD automation
-* Secure IAM practices
-* Monitoring and observability
-* High availability architecture
-* Cost optimization
-* Scaling strategies
-* Production troubleshooting
-
-Rather than simply deploying services, every architectural decision will be documented with:
-
-* Why the service exists
-* Why it was selected
-* Alternative approaches
-* Trade-offs
-* AWS Solutions Architect concepts
-* Common interview questions
-
----
-
-# Sprint Roadmap
-
-* [x] Sprint 0 – Project Planning
-* [x] Sprint 1 – Git & Repository Structure
-* [x] Sprint 2 – Docker Fundamentals
-* [ ] Sprint 3 – AWS Networking Concepts
-* [ ] Sprint 4 – Terraform Infrastructure as Code
-* [ ] Sprint 5 – AWS Infrastructure Deployment
-* [ ] Sprint 6 – Application Development
-* [ ] Sprint 7 – CI/CD Pipeline
-* [ ] Sprint 8 – Monitoring & Observability
-* [ ] Sprint 9 – Security Hardening
-* [ ] Sprint 10 – Performance & Cost Optimization
-* [ ] Sprint 11 – Production Readiness
-* [ ] Sprint 12 – Documentation & Portfolio Packaging
+- Prometheus
+- Grafana
+- Node Exporter
+- cAdvisor
 
 ---
 
 # Repository Structure
 
-```
+```text
 .
 ├── app/
-├── docker/
 ├── terraform/
-│   ├── modules/
-│   ├── environments/
-│   └── backend/
 ├── monitoring/
-│   ├── prometheus/
-│   ├── grafana/
-│   └── dashboards/
 ├── nginx/
-├── scripts/
-├── .github/
-│   └── workflows/
 ├── docs/
+├── .github/
+├── docker-compose.yml
 └── README.md
 ```
 
 ---
 
-# What Will Be Built
+# Sprint Progress
 
-* URL shortening API
-* Redirect service
-* Click analytics
-* Redis caching
-* PostgreSQL persistence
-* Dockerized application
-* Infrastructure with Terraform
-* Automated CI/CD pipeline
-* Monitoring dashboards
-* Production-style documentation
-
----
-
-# Project Philosophy
-
-This project is intentionally built like a real production system rather than a tutorial.
-
-The focus is on:
-
-* understanding *why* each technology exists,
-* making architecture decisions,
-* documenting trade-offs,
-* and building practical skills expected from DevOps engineers.
-
-Every sprint concludes with:
-
-* Learning summary
-* Architecture decisions
-* Interview questions
-* LinkedIn update
-* GitHub commit history
-* Screenshot checklist
-* Cost summary
-* Infrastructure cleanup steps
+| Sprint | Topic | Status |
+|---------|-------|--------|
+| Sprint 0 | Planning | ✅ |
+| Sprint 1 | Git & Repository Structure | ✅ |
+| Sprint 2 | Docker | ✅ |
+| Sprint 3 | Networking | ⏳ |
+| Sprint 4 | Terraform | ⏳ |
+| Sprint 5 | AWS Infrastructure | ⏳ |
+| Sprint 6 | Application | ⏳ |
+| Sprint 7 | CI/CD | ⏳ |
+| Sprint 8 | Monitoring | ⏳ |
+| Sprint 9 | Security | ⏳ |
+| Sprint 10 | Optimization | ⏳ |
+| Sprint 11 | Production Readiness | ⏳ |
+| Sprint 12 | Documentation | ⏳ |
 
 ---
 
-# Current Status
+# Current Features
 
-
-# Planned Monitoring
-
-The monitoring stack will include:
-
-* Prometheus
-* Grafana
-* Node Exporter
-* cAdvisor
-* FastAPI application metrics
-* Docker metrics
-* EC2 system metrics
-* PostgreSQL metrics
-* Redis metrics
-
-Sample dashboards will include:
-
-* CPU Usage
-* Memory Usage
-* Disk Usage
-* Network Throughput
-* HTTP Requests
-* Response Time
-* Error Rate
-* Cache Hit Ratio
-* Database Connections
-* Container Resource Usage
+- Project planning completed
+- Professional repository structure
+- Trunk-based Git workflow
+- Conventional Commits
+- Multi-stage Docker build
+- Docker Compose development environment
+- FastAPI placeholder service
+- PostgreSQL container
+- Redis container
+- Docker health checks
+- Non-root container
+- Docker bridge networking
 
 ---
 
-# Cost Management
+# Local Development
 
-Since this project is intended for learning and portfolio development:
+```bash
+docker compose up --build
+```
 
-* Infrastructure will only run during lab sessions.
-* All AWS resources will be destroyed after demonstrations.
-* Terraform will manage both provisioning and cleanup.
-* Screenshots and documentation will be captured before teardown.
+Run in background
 
----
+```bash
+docker compose up -d
+```
 
-# Future Enhancements
+View running containers
 
-* ECS deployment
-* Kubernetes migration
-* Blue/Green deployments
-* Canary releases
-* AWS WAF
-* CloudFront
-* ElastiCache
-* OpenTelemetry
-* Loki
-* Tempo
-* Multi-region deployment
-* Disaster recovery
+```bash
+docker compose ps
+```
 
----
+View logs
 
-# Why This Project?
+```bash
+docker compose logs -f app
+```
 
-Most portfolio projects demonstrate application development.
+Stop
 
-This project demonstrates infrastructure engineering.
+```bash
+docker compose down
+```
 
-The application is intentionally simple so the focus remains on:
+Destroy everything
 
-* AWS architecture
-* DevOps workflows
-* Automation
-* Monitoring
-* Security
-* Scalability
-* Reliability
-
-These are the skills expected of modern DevOps and Cloud Engineers.
+```bash
+docker compose down -v
+```
 
 ---
 
-# License
+# Documentation
 
-This repository is intended for educational and portfolio purposes.
+| Document | Description |
+|-----------|-------------|
+| docs/README.md | Documentation Index |
+| docs/project-roadmap.md | Sprint roadmap |
+| docs/architecture.md | Architecture decisions |
+| docs/sprints/ | Sprint-by-sprint documentation |
+
+---
+
+# Screenshots
+
+
+---
+
+
+
+# Future Improvements
+
+- ECS Deployment
+- Kubernetes Migration
+- Blue/Green Deployment
+- OpenTelemetry
+- Loki
+- Tempo
+- AWS WAF
+- CloudFront
+- Multi-Region Deployment
+
+---
+
+# Current Cost
+
+Current AWS Spend
+
+```
+$0.00
+```
+
+No cloud resources have been provisioned yet.
+
+---
+

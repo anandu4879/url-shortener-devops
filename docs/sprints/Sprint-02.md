@@ -105,8 +105,3 @@ docker compose down -v
 
 ---
 
-
-
-## Screenshots
-
-![Git Workflow](docs/sprints/image/docker local.png)

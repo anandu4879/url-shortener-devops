@@ -30,20 +30,28 @@ The application itself is intentionally simple so that the majority of effort go
 
 # Architecture
 
-> *(Architecture diagram will be added after Sprint 5.)*
-
 ```
 Internet
-     │
-     ▼
-Application Load Balancer
-     │
-     ▼
-FastAPI Application (EC2)
-     │
- ┌───┴─────────────┐
- ▼                 ▼
-Redis          PostgreSQL (RDS)
+      │
+      ▼
+Internet Gateway
+      │
+┌─────┴──────────┐
+│                │
+Public AZ-A   Public AZ-B
+│                │
+ALB         NAT Gateway
+                  │
+          Private Route Table
+                  │
+      ┌───────────┴───────────┐
+      │                       │
+Private AZ-A             Private AZ-B
+      │                       │
+  FastAPI                FastAPI
+      │
+      ▼
+ PostgreSQL
 
 Monitoring
  ├── Prometheus
@@ -108,6 +116,23 @@ Monitoring
 .
 ├── app/
 ├── terraform/
+|     │
+|     ├── bootstrap/
+|     │   └── main.tf
+|     │
+|     ├── environments/
+|     │   └── dev/
+|     │       ├── backend.tf
+|     │       ├── main.tf
+|    │       ├── variables.tf
+|     │       └── outputs.tf
+|     │
+|     └── modules/
+|     └── vpc/
+|          ├── main.tf
+|          ├── variables.tf
+|          └── outputs.tf
+|
 ├── monitoring/
 ├── nginx/
 ├── docs/
@@ -125,8 +150,8 @@ Monitoring
 | Sprint 0 | Planning | ✅ |
 | Sprint 1 | Git & Repository Structure | ✅ |
 | Sprint 2 | Docker | ✅ |
-| Sprint 3 | Networking | ⏳ |
-| Sprint 4 | Terraform | ⏳ |
+| Sprint 3 | Networking | ✅ |
+| Sprint 4 | Terraform | ✅ |
 | Sprint 5 | AWS Infrastructure | ⏳ |
 | Sprint 6 | Application | ⏳ |
 | Sprint 7 | CI/CD | ⏳ |
@@ -152,6 +177,24 @@ Monitoring
 - Docker health checks
 - Non-root container
 - Docker bridge networking
+## Current Features
+
+- ✅ Production project planning
+- ✅ Git repository with trunk-based workflow
+- ✅ Conventional Commits
+- ✅ Dockerized FastAPI application
+- ✅ Multi-stage Docker builds
+- ✅ Docker Compose local development
+- ✅ PostgreSQL container
+- ✅ Redis container
+- ✅ Docker bridge networking
+- ✅ Health checks
+- ✅ Custom AWS networking architecture
+- ✅ Multi-AZ VPC design
+- ✅ Terraform Infrastructure as Code
+- ✅ Modular Terraform architecture
+- ✅ Remote Terraform state (S3)
+- ✅ Terraform state locking (DynamoDB)
 
 ---
 
@@ -193,16 +236,6 @@ docker compose down -v
 
 ---
 
-# Documentation
-
-| Document | Description |
-|-----------|-------------|
-| docs/README.md | Documentation Index |
-| docs/project-roadmap.md | Sprint roadmap |
-| docs/architecture.md | Architecture decisions |
-| docs/sprints/ | Sprint-by-sprint documentation |
-
----
 
 # Screenshots
 
@@ -237,3 +270,54 @@ No cloud resources have been provisioned yet.
 
 ---
 
+# Infrastructure as Code
+
+Infrastructure is provisioned using **Terraform**.
+
+### Implemented
+
+- Modular Terraform architecture
+- AWS Provider
+- Variables
+- Outputs
+- Modules
+- Remote Backend
+- State Locking
+- Availability Zone Discovery
+- VPC Module
+- Security Groups
+- Route Tables
+
+### Terraform Commands
+
+```bash
+terraform init
+
+terraform fmt
+
+terraform validate
+
+terraform plan
+
+terraform apply
+
+terraform destroy
+```
+
+# Security
+
+Implemented
+
+- Least-Privilege Security Groups
+- Application isolation
+- Multi-tier networking
+- Remote Terraform state
+- Encrypted S3 backend
+- DynamoDB state locking
+
+Upcoming
+
+- IAM Roles
+- GitHub OIDC
+- AWS Systems Manager
+- Secrets Management

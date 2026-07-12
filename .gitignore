@@ -1,0 +1,95 @@
+# ==========================
+# Python
+# ==========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.pyre/
+.ruff_cache/
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# ==========================
+# Environment Variables
+# ==========================
+.env
+.env.*
+!.env.example
+
+# ==========================
+# Terraform
+# ==========================
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# ==========================
+# Terraform Plan Files
+# ==========================
+*.tfplan
+*.plan
+
+# ==========================
+# IDEs
+# ==========================
+.vscode/
+.idea/
+*.iml
+
+# ==========================
+# macOS
+# ==========================
+.DS_Store
+
+# ==========================
+# Windows
+# ==========================
+Thumbs.db
+Desktop.ini
+
+# ==========================
+# Logs
+# ==========================
+*.log
+logs/
+
+# ==========================
+# Docker
+# ==========================
+*.pid
+
+# ==========================
+# Testing
+# ==========================
+.coverage
+coverage.xml
+
+# ==========================
+# Local Database
+# ==========================
+*.db
+*.sqlite
+*.sqlite3
+
+# ==========================
+# Misc
+# ==========================
+*.bak
+*.tmp
+*.swp

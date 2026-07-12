@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket       = "url-shortener-devops-tfstate-<your-account-id>"
+    bucket       = "url-shortener-devops-tfstate-904233090074"
     key          = "dev/terraform.tfstate"
-    region       = "us-east-1"
+    region       = "ap-south-1"
     encrypt      = true
     use_lockfile = true
   }

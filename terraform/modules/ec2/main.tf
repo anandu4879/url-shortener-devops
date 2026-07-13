@@ -20,6 +20,10 @@ resource "aws_iam_role" "ec2_role" {
     }]
   })
 }
+resource "aws_iam_role_policy_attachment" "ecr_pull" {
+  role       = aws_iam_role.ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+}
 
 resource "aws_iam_role_policy_attachment" "ssm" {
   role       = aws_iam_role.ec2_role.name
@@ -43,8 +47,11 @@ resource "aws_launch_template" "app" {
   }
 
   user_data = base64encode(templatefile("${path.module}/user_data.sh.tpl", {
-    aws_region = var.aws_region
-  }))
+  aws_region          = var.aws_region
+  ecr_repository_url  = var.ecr_repository_url
+  database_url        = var.database_url
+  redis_url            = var.redis_url
+}))
 
   tag_specifications {
     resource_type = "instance"

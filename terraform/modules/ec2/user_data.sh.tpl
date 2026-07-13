@@ -4,6 +4,9 @@ dnf install -y docker
 systemctl enable --now docker
 usermod -aG docker ec2-user
 
-# Placeholder — real app image pull happens once ECR exists in Sprint 6/7
-docker run -d --name placeholder -p 8000:8000 \
-  python:3.11-slim python -m http.server 8000
+aws ecr get-login-password --region ${aws_region} | docker login --username AWS --password-stdin ${ecr_repository_url}
+
+docker run -d --name app -p 8000:8000 \
+  -e DATABASE_URL="${database_url}" \
+  -e REDIS_URL="${redis_url}" \
+  ${ecr_repository_url}:v3

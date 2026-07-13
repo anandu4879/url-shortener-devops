@@ -51,6 +51,10 @@ module "ec2" {
   min_size           = 1
   max_size           = 2
   desired_capacity   = 1
+
+  ecr_repository_url = module.ecr.repository_url
+  database_url       = "postgresql://appuser:${var.db_password}@${module.rds.rds_endpoint}:5432/urlshortener"
+  redis_url          = "redis://${var.redis_host}:6379/0"
 }
 
 module "rds" {
@@ -61,4 +65,8 @@ module "rds" {
   rds_sg_id          = module.vpc.rds_sg_id
   instance_class     = "db.t3.micro"
   db_password        = var.db_password
+}
+module "ecr" {
+  source      = "../../modules/ecr"
+  name_prefix = local.name_prefix
 }

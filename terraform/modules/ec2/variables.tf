@@ -37,3 +37,15 @@ variable "desired_capacity" {
   type    = number
   default = 1
 }
+variable "ecr_repository_url" {
+  type = string
+}
+
+variable "database_url" {
+  type      = string
+  sensitive = true
+}
+
+variable "redis_url" {
+  type = string
+}

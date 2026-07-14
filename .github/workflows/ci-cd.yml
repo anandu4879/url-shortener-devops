@@ -26,7 +26,7 @@ jobs:
         run: pip install -r app/requirements.txt -r app/requirements-dev.txt
 
       - name: Lint
-        run: flake8 app/src
+        run: flake8 --config=app/.flake8 app/src
 
       - name: Run tests
         run: python -m pytest app/tests

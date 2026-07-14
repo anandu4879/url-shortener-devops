@@ -1,6 +1,7 @@
 from sqlalchemy import Column, String, Integer, DateTime, func
 from .database import Base
 
+
 class URLMapping(Base):
     __tablename__ = "url_mappings"
 

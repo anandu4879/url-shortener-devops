@@ -5,6 +5,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 DATABASE_URL = os.environ["DATABASE_URL"]
 
+
 def get_engine(retries: int = 10, delay: int = 3):
     last_error = None
     for attempt in range(retries):
@@ -17,9 +18,11 @@ def get_engine(retries: int = 10, delay: int = 3):
             time.sleep(delay)
     raise RuntimeError(f"Could not connect to database after {retries} attempts") from last_error
 
+
 engine = get_engine()
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 Base = declarative_base()
+
 
 def get_db():
     db = SessionLocal()

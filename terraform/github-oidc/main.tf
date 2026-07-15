@@ -45,3 +45,74 @@ resource "aws_iam_role_policy_attachment" "github_actions_ecr" {
   role       = aws_iam_role.github_actions.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser"
 }
+
+resource "aws_iam_role_policy" "github_actions_infra" {
+  name = "url-shortener-github-actions-infra"
+  role = aws_iam_role.github_actions.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "NetworkingAndCompute"
+        Effect = "Allow"
+        Action = [
+          "ec2:*",
+          "elasticloadbalancing:*",
+          "autoscaling:*"
+        ]
+        Resource = "*"
+      },
+      {
+        Sid      = "DatabaseAndCache"
+        Effect   = "Allow"
+        Action   = ["rds:*"]
+        Resource = "*"
+      },
+      {
+        Sid      = "ObservabilityAndConfig"
+        Effect   = "Allow"
+        Action   = ["cloudwatch:*", "logs:*", "ssm:*"]
+        Resource = "*"
+      },
+      {
+        Sid    = "TerraformStateBucketOnly"
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket",
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject"
+        ]
+        Resource = [
+          "arn:aws:s3:::url-shortener-devops-tfstate-904233090074",
+          "arn:aws:s3:::url-shortener-devops-tfstate-904233090074/*"
+        ]
+      },
+      {
+        Sid    = "IamForInstanceProfilesOnly"
+        Effect = "Allow"
+        Action = [
+          "iam:CreateRole",
+          "iam:DeleteRole",
+          "iam:GetRole",
+          "iam:PassRole",
+          "iam:AttachRolePolicy",
+          "iam:DetachRolePolicy",
+          "iam:PutRolePolicy",
+          "iam:DeleteRolePolicy",
+          "iam:CreateInstanceProfile",
+          "iam:DeleteInstanceProfile",
+          "iam:AddRoleToInstanceProfile",
+          "iam:RemoveRoleFromInstanceProfile",
+          "iam:TagRole",
+          "iam:ListInstanceProfilesForRole"
+        ]
+        Resource = [
+          "arn:aws:iam::*:role/url-shortener-*",
+          "arn:aws:iam::*:instance-profile/url-shortener-*"
+        ]
+      }
+    ]
+  })
+}

@@ -93,31 +93,32 @@ resource "aws_iam_role_policy" "github_actions_infra" {
         ]
       },
       {
-        Sid    = "IamForInstanceProfilesOnly"
-        Effect = "Allow"
-        Action = [
-          "iam:CreateRole",
-          "iam:DeleteRole",
-          "iam:GetRole",
-          "iam:PassRole",
-          "iam:AttachRolePolicy",
-          "iam:DetachRolePolicy",
-          "iam:PutRolePolicy",
-          "iam:DeleteRolePolicy",
-          "iam:CreateInstanceProfile",
-          "iam:DeleteInstanceProfile",
-          "iam:AddRoleToInstanceProfile",
-          "iam:RemoveRoleFromInstanceProfile",
-          "iam:TagRole",
-          "iam:ListInstanceProfilesForRole",
-          "iam:ListRolePolicies",
-          "iam:ListAttachedRolePolicies"
-        ]
-        Resource = [
-          "arn:aws:iam::*:role/url-shortener-*",
-          "arn:aws:iam::*:instance-profile/url-shortener-*"
-        ]
-      }
+  Sid    = "IamForInstanceProfilesOnly"
+  Effect = "Allow"
+  Action = [
+    "iam:CreateRole",
+    "iam:DeleteRole",
+    "iam:GetRole",
+    "iam:PassRole",
+    "iam:AttachRolePolicy",
+    "iam:DetachRolePolicy",
+    "iam:PutRolePolicy",
+    "iam:DeleteRolePolicy",
+    "iam:CreateInstanceProfile",
+    "iam:DeleteInstanceProfile",
+    "iam:AddRoleToInstanceProfile",
+    "iam:RemoveRoleFromInstanceProfile",
+    "iam:TagRole",
+    "iam:ListInstanceProfilesForRole",
+    "iam:ListRolePolicies",
+    "iam:ListAttachedRolePolicies",
+    "iam:GetInstanceProfile"
+  ]
+  Resource = [
+    "arn:aws:iam::*:role/url-shortener-*",
+    "arn:aws:iam::*:instance-profile/url-shortener-*"
+  ]
+}
       
     ]
   })

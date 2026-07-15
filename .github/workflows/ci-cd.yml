@@ -141,42 +141,34 @@ jobs:
       - name: Configure AWS credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.ACTIONS_ROLE_ARN }}
+          role-to-assume: ${{ secrets.GITHUB_ACTIONS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Wait for target group health
+      - name: Get target group ARN
+        id: tg
         run: |
-          for i in $(seq 1 20); do
-            STATUS=$(aws elbv2 describe-target-health \
-              --target-group-arn ${{ secrets.TARGET_GROUP_ARN }} \
-              --query 'TargetHealthDescriptions[0].TargetHealth.State' \
-              --output text)
-            if [ "$STATUS" == "healthy" ]; then
-              echo "Target healthy"
-              exit 0
-            fi
-            echo "Waiting... current state: $STATUS"
-            sleep 15
-          done
-          echo "Deployment did not become healthy in time"
-          exit 1
-      - name: Wait for target group health
-        run: |
-          for i in $(seq 1 20); do
-            STATUS=$(aws elbv2 describe-target-health \
-              --target-group-arn ${{ secrets.TARGET_GROUP_ARN }} \
-              --query 'TargetHealthDescriptions[0].TargetHealth.State' \
-              --output text)
-            if [ "$STATUS" == "healthy" ]; then
-              echo "Target healthy"
-              exit 0
-            fi
-            echo "Waiting... current state: $STATUS"
-            sleep 15
-          done
-          echo "Deployment did not become healthy in time"
-          exit 1
+          ARN=$(aws elbv2 describe-target-groups \
+            --names url-shortener-dev-tg \
+            --query 'TargetGroups[0].TargetGroupArn' \
+            --output text)
+          echo "arn=$ARN" >> "$GITHUB_OUTPUT"
 
+      - name: Wait for target group health
+        run: |
+          for i in $(seq 1 20); do
+            STATUS=$(aws elbv2 describe-target-health \
+              --target-group-arn ${{ steps.tg.outputs.arn }} \
+              --query 'TargetHealthDescriptions[0].TargetHealth.State' \
+              --output text)
+            if [ "$STATUS" == "healthy" ]; then
+              echo "Target healthy"
+              exit 0
+            fi
+            echo "Waiting... current state: $STATUS"
+            sleep 15
+          done
+          echo "Deployment did not become healthy in time"
+          exit 1
   rollback:
     needs: health-check
     if: failure()

@@ -3,13 +3,21 @@ global:
 
 scrape_configs:
   - job_name: "app"
-    static_configs:
-      - targets: ["app:8000"]
+    ec2_sd_configs:
+      - region: ap-south-1
+        port: 8000
+        filters:
+          - name: "tag:Name"
+            values: ["url-shortener-dev-app"]
+    relabel_configs:
+      - source_labels: [__meta_ec2_private_ip]
+        target_label: __address__
+        replacement: "${1}:8000"
 
   - job_name: "node-exporter"
     static_configs:
-      - targets: ["node-exporter:9100"]
+      - targets: ["localhost:9100"]
 
   - job_name: "cadvisor"
     static_configs:
-      - targets: ["cadvisor:8080"]
+      - targets: ["localhost:8080"]

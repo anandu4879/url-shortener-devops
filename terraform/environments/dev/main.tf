@@ -71,3 +71,20 @@ module "ecr" {
   source      = "../../modules/ecr"
   name_prefix = local.name_prefix
 }
+module "monitoring" {
+  source = "../../modules/monitoring"
+
+  name_prefix        = local.name_prefix
+  aws_region         = var.aws_region
+  vpc_id             = module.vpc.vpc_id
+  private_subnet_ids = module.vpc.private_subnet_ids
+  app_sg_id          = module.vpc.app_sg_id
+}
+resource "aws_security_group_rule" "app_allow_monitoring" {
+  type                     = "ingress"
+  from_port                = 8000
+  to_port                  = 8000
+  protocol                 = "tcp"
+  security_group_id        = module.vpc.app_sg_id
+  source_security_group_id = module.monitoring.monitoring_sg_id
+}

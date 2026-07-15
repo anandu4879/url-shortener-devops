@@ -12,3 +12,6 @@ output "private_subnet_ids" {
 output "ecr_repository_url" {
   value = module.ecr.repository_url
 }
+output "monitoring_instance_id" {
+  value = module.monitoring.instance_id
+}

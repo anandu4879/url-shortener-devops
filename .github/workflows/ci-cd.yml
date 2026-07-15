@@ -178,3 +178,4 @@ jobs:
           terraform apply -auto-approve \
             -var="image_tag=${{ secrets.LAST_KNOWN_GOOD_TAG }}" \
             -var="db_password=${{ secrets.DB_PASSWORD }}"
+            

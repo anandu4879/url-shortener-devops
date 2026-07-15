@@ -1,0 +1,9 @@
+# No fixed version available upstream as of 2026-07 — base OS packages, not app code.
+# Re-evaluate when python:3.11-slim base image updates.
+CVE-2026-53615
+CVE-2026-41992
+CVE-2026-54369
+CVE-2025-69720
+CVE-2026-13221
+CVE-2026-8376
+CVE-2026-57432

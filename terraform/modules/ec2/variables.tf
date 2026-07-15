@@ -49,3 +49,8 @@ variable "database_url" {
 variable "redis_url" {
   type = string
 }
+variable "image_tag" {
+  description = "Docker image tag to deploy, typically a commit SHA from CI"
+  type        = string
+  default     = "v1"
+}

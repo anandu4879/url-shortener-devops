@@ -541,4 +541,4 @@ The next sprint focuses on implementing a complete monitoring stack using:
 - Alerting
 - Dashboards
 
-This will provide complete visibility into application performance, system health, and infrastructure utilization.
+This will provide complete visibility into application performance, system health, and infrastructure utilization .

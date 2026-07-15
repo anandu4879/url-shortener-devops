@@ -155,7 +155,7 @@ Monitoring
 | Sprint 5 | AWS Infrastructure | ✅ |
 | Sprint 6 | Application | ✅ |
 | Sprint 7 | CI/CD |✅ |
-| Sprint 8 | Monitoring | ⏳ |
+| Sprint 8 | Monitoring | ✅ |
 | Sprint 9 | Security | ⏳ |
 | Sprint 10 | Optimization | ⏳ |
 | Sprint 11 | Production Readiness | ⏳ |

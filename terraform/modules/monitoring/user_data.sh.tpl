@@ -59,6 +59,8 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
       - grafana_data:/var/lib/grafana
+      - /opt/monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - /opt/monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
     network_mode: host
 volumes:
   prometheus_data:

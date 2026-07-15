@@ -75,24 +75,11 @@ resource "aws_iam_instance_profile" "monitoring_profile" {
 }
 
 resource "aws_instance" "monitoring" {
-  ami                    = data.aws_ami.amazon_linux.id
-  instance_type          = var.instance_type
-  subnet_id              = var.private_subnet_ids[0]
-  vpc_security_group_ids = [aws_security_group.monitoring.id]
-  iam_instance_profile   = aws_iam_instance_profile.monitoring_profile.name
-
-  user_data = base64encode(templatefile("${path.module}/user_data.sh.tpl", {
-    aws_region = var.aws_region
-  }))
-
-  tags = { Name = "${var.name_prefix}-monitoring" }
-}
-resource "aws_instance" "monitoring" {
-  ami                          = data.aws_ami.amazon_linux.id
+  ami                         = data.aws_ami.amazon_linux.id
   instance_type                = var.instance_type
   subnet_id                    = var.private_subnet_ids[0]
-  vpc_security_group_ids       = [aws_security_group.monitoring.id]
-  iam_instance_profile         = aws_iam_instance_profile.monitoring_profile.name
+  vpc_security_group_ids        = [aws_security_group.monitoring.id]
+  iam_instance_profile           = aws_iam_instance_profile.monitoring_profile.name
   user_data_replace_on_change  = true
 
   user_data = base64encode(templatefile("${path.module}/user_data.sh.tpl", {

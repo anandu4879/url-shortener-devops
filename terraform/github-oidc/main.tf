@@ -92,13 +92,14 @@ resource "aws_iam_role_policy" "github_actions_infra" {
           "arn:aws:s3:::url-shortener-devops-tfstate-904233090074/*"
         ]
       },
-      {
+{
   Sid    = "IamForInstanceProfilesOnly"
   Effect = "Allow"
   Action = [
     "iam:CreateRole",
     "iam:DeleteRole",
     "iam:GetRole",
+    "iam:GetRolePolicy",
     "iam:PassRole",
     "iam:AttachRolePolicy",
     "iam:DetachRolePolicy",
@@ -112,7 +113,9 @@ resource "aws_iam_role_policy" "github_actions_infra" {
     "iam:ListInstanceProfilesForRole",
     "iam:ListRolePolicies",
     "iam:ListAttachedRolePolicies",
-    "iam:GetInstanceProfile"
+    "iam:GetInstanceProfile",
+    "iam:ListRoleTags",
+    "iam:ListInstanceProfileTags"
   ]
   Resource = [
     "arn:aws:iam::*:role/url-shortener-*",

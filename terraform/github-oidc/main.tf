@@ -106,13 +106,16 @@ resource "aws_iam_role_policy" "github_actions_infra" {
           "iam:AddRoleToInstanceProfile",
           "iam:RemoveRoleFromInstanceProfile",
           "iam:TagRole",
-          "iam:ListInstanceProfilesForRole"
+          "iam:ListInstanceProfilesForRole",
+          "iam:ListRolePolicies",
+          "iam:ListAttachedRolePolicies"
         ]
         Resource = [
           "arn:aws:iam::*:role/url-shortener-*",
           "arn:aws:iam::*:instance-profile/url-shortener-*"
         ]
       }
+      
     ]
   })
 }

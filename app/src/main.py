@@ -1,18 +1,39 @@
-from fastapi import FastAPI, HTTPException, Depends
-from fastapi.responses import RedirectResponse
+import time
+from fastapi import FastAPI, HTTPException, Depends, Request
+from fastapi.responses import RedirectResponse, Response
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import text
+from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
 
 from .database import get_db, engine, Base
 from .models import URLMapping
 from .schemas import ShortenRequest, ShortenResponse
 from .cache import get_cached_url, set_cached_url
 from .shortcode import generate_short_code
+from .metrics import REQUEST_COUNT, REQUEST_LATENCY, URLS_CREATED
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="URL Shortener")
+
+
+@app.middleware("http")
+async def track_metrics(request: Request, call_next):
+    start = time.perf_counter()
+    response = await call_next(request)
+    duration = time.perf_counter() - start
+    endpoint = request.url.path
+    REQUEST_LATENCY.labels(endpoint=endpoint).observe(duration)
+    REQUEST_COUNT.labels(
+        method=request.method, endpoint=endpoint, status=response.status_code
+    ).inc()
+    return response
+
+
+@app.get("/metrics")
+def metrics():
+    return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
 
 
 @app.post("/shorten", response_model=ShortenResponse)
@@ -23,6 +44,7 @@ def shorten_url(payload: ShortenRequest, db: Session = Depends(get_db)):
         db.add(mapping)
         try:
             db.commit()
+            URLS_CREATED.inc()
             return ShortenResponse(short_code=code, short_url=f"/{code}")
         except IntegrityError:
             db.rollback()

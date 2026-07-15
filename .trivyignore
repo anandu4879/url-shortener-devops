@@ -1,4 +1,4 @@
-# No fixed version available upstream as of 2026-07 — base OS packages, not app code.
+# --- Base OS packages (Debian) with no fixed version available upstream ---
 # Re-evaluate when python:3.11-slim base image updates.
 CVE-2026-53615
 CVE-2026-41992
@@ -7,3 +7,12 @@ CVE-2025-69720
 CVE-2026-13221
 CVE-2026-8376
 CVE-2026-57432
+CVE-2026-42496
+CVE-2026-42497
+CVE-2026-48962
+CVE-2026-9538
+
+# --- Vendored inside setuptools' bundled copy, not a direct/transitive pip dependency ---
+# Cannot be patched via requirements.txt; upstream setuptools controls this.
+CVE-2026-24049
+CVE-2026-23949

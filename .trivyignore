@@ -16,3 +16,10 @@ CVE-2026-9538
 # Cannot be patched via requirements.txt; upstream setuptools controls this.
 CVE-2026-24049
 CVE-2026-23949
+
+# --- Starlette fixes require a major version (1.x) that installed FastAPI
+# does not yet support (fastapi 0.129.0 pins starlette<1.0.0). Forcing a
+# newer Starlette breaks pip's dependency resolution. Revisit when FastAPI
+# officially supports Starlette 1.x. Verified via pip resolver error 2026-07-15.
+CVE-2026-48818
+CVE-2026-54283

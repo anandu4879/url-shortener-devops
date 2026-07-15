@@ -9,4 +9,4 @@ aws ecr get-login-password --region ${aws_region} | docker login --username AWS 
 docker run -d --name app -p 8000:8000 \
   -e DATABASE_URL="${database_url}" \
   -e REDIS_URL="${redis_url}" \
-  ${ecr_repository_url}:v3
+  ${ecr_repository_url}:${image_tag}

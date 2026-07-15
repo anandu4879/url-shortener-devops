@@ -51,6 +51,7 @@ resource "aws_launch_template" "app" {
   ecr_repository_url  = var.ecr_repository_url
   database_url        = var.database_url
   redis_url            = var.redis_url
+  image_tag           = var.image_tag
 }))
 
   tag_specifications {

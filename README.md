@@ -154,7 +154,7 @@ Monitoring
 | Sprint 4 | Terraform | ✅ |
 | Sprint 5 | AWS Infrastructure | ✅ |
 | Sprint 6 | Application | ✅ |
-| Sprint 7 | CI/CD | ⏳ |
+| Sprint 7 | CI/CD |✅ |
 | Sprint 8 | Monitoring | ⏳ |
 | Sprint 9 | Security | ⏳ |
 | Sprint 10 | Optimization | ⏳ |

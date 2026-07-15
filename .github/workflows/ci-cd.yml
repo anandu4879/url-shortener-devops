@@ -33,7 +33,7 @@ jobs:
 
       - name: Run tests
         run: python -m pytest tests
-        working-directory: .
+      
 
   build-and-push:
     needs: test
@@ -50,7 +50,7 @@ jobs:
       - name: Configure AWS credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::904233090074:role/url-shortener-github-actions
+          role-to-assume: ${{ secrets.ACTIONS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to ECR

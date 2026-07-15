@@ -36,3 +36,8 @@ variable "redis_host" {
   type    = string
   default = "localhost"
 }
+variable "image_tag" {
+  description = "Docker image tag to deploy, typically a commit SHA from CI"
+  type        = string
+  default     = "v1"
+}

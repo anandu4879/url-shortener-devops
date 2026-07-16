@@ -110,38 +110,6 @@ Monitoring
 
 ---
 
-# Repository Structure
-
-```text
-.
-├── app/
-├── terraform/
-|     │
-|     ├── bootstrap/
-|     │   └── main.tf
-|     │
-|     ├── environments/
-|     │   └── dev/
-|     │       ├── backend.tf
-|     │       ├── main.tf
-|    │       ├── variables.tf
-|     │       └── outputs.tf
-|     │
-|     └── modules/
-|     └── vpc/
-|          ├── main.tf
-|          ├── variables.tf
-|          └── outputs.tf
-|
-├── monitoring/
-├── nginx/
-├── docs/
-├── .github/
-├── docker-compose.yml
-└── README.md
-```
-
----
 
 # Sprint Progress
 
@@ -156,168 +124,27 @@ Monitoring
 | Sprint 6 | Application | ✅ |
 | Sprint 7 | CI/CD |✅ |
 | Sprint 8 | Monitoring | ✅ |
-| Sprint 9 | Security | ⏳ |
-| Sprint 10 | Optimization | ⏳ |
-| Sprint 11 | Production Readiness | ⏳ |
-| Sprint 12 | Documentation | ⏳ |
-
 ---
 
-# Current Features
+## Current status
+Sprints 0–9 complete and applied: planning, Git workflow, Docker,
+networking, Terraform, AWS infrastructure, the application itself, CI/CD
+with OIDC, full observability (Prometheus/Grafana/Alertmanager), and a
+security hardening pass (Parameter Store secrets, IMDSv2, restricted
+/metrics endpoint).
 
-- Project planning completed
-- Professional repository structure
-- Trunk-based Git workflow
-- Conventional Commits
-- Multi-stage Docker build
-- Docker Compose development environment
-- FastAPI placeholder service
-- PostgreSQL container
-- Redis container
-- Docker health checks
-- Non-root container
-- Docker bridge networking
-## Current Features
+## Planned next (not yet built)
+- **Optimization**: right-sizing instances based on real Grafana metrics,
+  cache TTL tuning, target-tracking auto-scaling policy
+- **Production readiness**: alert-to-notification wiring (Alertmanager →
+  Slack/email), automated last-known-good rollback tracking
+- **Documentation**: full architecture writeup, cost breakdown,
+  lessons-learned doc, ECS/Kubernetes migration plan
 
-- ✅ Production project planning
-- ✅ Git repository with trunk-based workflow
-- ✅ Conventional Commits
-- ✅ Dockerized FastAPI application
-- ✅ Multi-stage Docker builds
-- ✅ Docker Compose local development
-- ✅ PostgreSQL container
-- ✅ Redis container
-- ✅ Docker bridge networking
-- ✅ Health checks
-- ✅ Custom AWS networking architecture
-- ✅ Multi-AZ VPC design
-- ✅ Terraform Infrastructure as Code
-- ✅ Modular Terraform architecture
-- ✅ Remote Terraform state (S3)
-- ✅ Terraform state locking (DynamoDB)
-
----
-
-# Local Development
-
-```bash
-docker compose up --build
-```
-
-Run in background
-
-```bash
-docker compose up -d
-```
-
-View running containers
-
-```bash
-docker compose ps
-```
-
-View logs
-
-```bash
-docker compose logs -f app
-```
-
-Stop
-
-```bash
-docker compose down
-```
-
-Destroy everything
-
-```bash
-docker compose down -v
-```
-
----
-
-
-# Screenshots
-
-
----
+These are scoped and understood conceptually (see design notes below) but
+intentionally not built yet — prioritizing depth on the harder infra/CI/CD
+work first.
 
 
 
-# Future Improvements
 
-- ECS Deployment
-- Kubernetes Migration
-- Blue/Green Deployment
-- OpenTelemetry
-- Loki
-- Tempo
-- AWS WAF
-- CloudFront
-- Multi-Region Deployment
-
----
-
-# Current Cost
-
-Current AWS Spend
-
-```
-$0.00
-```
-
-No cloud resources have been provisioned yet.
-
----
-
-# Infrastructure as Code
-
-Infrastructure is provisioned using **Terraform**.
-
-### Implemented
-
-- Modular Terraform architecture
-- AWS Provider
-- Variables
-- Outputs
-- Modules
-- Remote Backend
-- State Locking
-- Availability Zone Discovery
-- VPC Module
-- Security Groups
-- Route Tables
-
-### Terraform Commands
-
-```bash
-terraform init
-
-terraform fmt
-
-terraform validate
-
-terraform plan
-
-terraform apply
-
-terraform destroy
-```
-
-# Security
-
-Implemented
-
-- Least-Privilege Security Groups
-- Application isolation
-- Multi-tier networking
-- Remote Terraform state
-- Encrypted S3 backend
-- DynamoDB state locking
-
-Upcoming
-
-- IAM Roles
-- GitHub OIDC
-- AWS Systems Manager
-- Secrets Management

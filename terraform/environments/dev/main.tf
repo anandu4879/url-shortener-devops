@@ -54,7 +54,7 @@ module "ec2" {
 
   ecr_repository_url = module.ecr.repository_url
   database_url       = "postgresql://appuser:${var.db_password}@${module.rds.rds_endpoint}:5432/urlshortener"
-  redis_url          = "redis://${var.redis_host}:6379/0"
+  redis_url = "redis://${module.elasticache.redis_endpoint}:6379/0"
   image_tag          = var.image_tag
 }
 
@@ -87,4 +87,12 @@ resource "aws_security_group_rule" "app_allow_monitoring" {
   protocol                 = "tcp"
   security_group_id        = module.vpc.app_sg_id
   source_security_group_id = module.monitoring.monitoring_sg_id
+}
+module "elasticache" {
+  source = "../../modules/elasticache"
+
+  name_prefix        = local.name_prefix
+  vpc_id             = module.vpc.vpc_id
+  private_subnet_ids = module.vpc.private_subnet_ids
+  app_sg_id          = module.vpc.app_sg_id
 }

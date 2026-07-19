@@ -15,3 +15,6 @@ output "ecr_repository_url" {
 output "monitoring_instance_id" {
   value = module.monitoring.instance_id
 }
+output "redis_endpoint" {
+  value = module.elasticache.redis_endpoint
+}
